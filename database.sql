@@ -1,4 +1,19 @@
 SET foreign_key_checks = 0;
+DROP TABLE IF EXISTS `kategori`;
+CREATE TABLE `kategori` (
+  `id` int(2) NOT NULL AUTO_INCREMENT,
+  `kategori` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `kriteria`;
+CREATE TABLE `kriteria` (
+  `id` int(2) NOT NULL AUTO_INCREMENT,
+  `kriteria` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+INSERT INTO `kriteria` VALUES (1,'espresso'),(2,'bahancampuran'),(3,'suhuair'),(4,'volumeair'),(5,'beratbubuk'),(6,'alatseduh');
 DROP TABLE IF EXISTS `resep`;
 CREATE TABLE `resep` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

@@ -27,7 +27,7 @@
 						<i class="fas fa-user"></i>Data Users</a>
 				</li>
 				<li>
-					<a href="#">
+					<a href="<?php echo _URL.'admin/kriteria' ?>">
 						<i class="fas fa-align-left"></i>Data Kriteria</a>
 				</li>
 				<li>

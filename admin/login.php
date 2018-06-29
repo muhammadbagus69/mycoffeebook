@@ -5,12 +5,6 @@ if (!empty($_SESSION['user']['name']))
 	echo "<script>window.location='"._URL."admin/index' </script>";
 }
 
-$a = $db->getAll('SELECT * FROM user WHERE 1');
-
-// pr($a);die();
-
-
-// pr($_POST, $_SESSION);
 if (!empty($_POST)){
 	$username = $_POST['username'];
   $password = $_POST['password'];

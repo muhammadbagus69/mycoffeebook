@@ -49,7 +49,7 @@
       <?php
       if (empty($_URI)) 
       {
-        header("Location:http://awesomeskripsi.com/admin/main");
+        header("Location:"._URL."admin/main");
       }
         if (!empty($_SESSION['user']['name'])) 
         {
