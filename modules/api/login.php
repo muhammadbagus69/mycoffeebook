@@ -1,5 +1,4 @@
-<?php  if (!defined('_VALID_')) exit('No direct script access allowed');
-
+<?php  
 $username = $_GET['username'];
 $password = $_GET['password'];
 

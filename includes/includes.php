@@ -1,4 +1,4 @@
-<?php  if (!defined('_VALID_')) exit('No direct script access allowed');
+<?php
 
 if (!defined('_ROOT')) define('_INC'		, dirname(__FILE__).'/');
 else	define('_INC'		, _ROOT.'includes/');

@@ -1,4 +1,4 @@
-<?php  if ( ! defined('_VALID_')) exit('No direct script access allowed');
+<?php  
 if (!defined('_SYS'))
 {
 	if (defined('_ROOT'))

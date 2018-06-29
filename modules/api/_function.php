@@ -1,4 +1,4 @@
-<?php  if (!defined('_VALID_')) exit('No direct script access allowed');
+<?php  
 
 function api_ok($value, $is_ok = 1)
 {
