@@ -1,0 +1,14 @@
+<?php  if (!defined('_VALID_')) exit('No direct script access allowed');
+
+$username = $_GET['username'];
+$password = $_GET['password'];
+
+$query 		= $db->getRow("SELECT `username`,`password` FROM user WHERE username = '$username' AND password = '$password'");  
+
+if ($query) {
+	$user 	= $db->getRow("SELECT * FROM user WHERE username = '$username'"); 
+}
+if (!$query) {
+	$user 	= "Akun tidak ditemukan";
+}
+api_ok($user);
