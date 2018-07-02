@@ -2,3 +2,5 @@
 Thumbs.db
 images/cache/
 images/license.txt
+config.php
+sftp-config.json

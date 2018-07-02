@@ -35,7 +35,7 @@
             </a>
             <ul class="dropdown-menu dropdown-user">
               <li>
-                <a href="http://bagus.com/admin/index.php?mod=content.logout" class="admin_link">
+                <a href="<?php echo _URL; ?>admin/index.php?mod=content.logout" class="admin_link">
                   <i class="fa fa-sign-out fa-fw"></i>
                   Logout
                 </a>
@@ -49,37 +49,37 @@
           <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
               <li>
-                <a href="http://bagus.com/admin/index.php?mod=content.list" class="admin_link">
+                <a href="<?php echo _URL; ?>admin/index.php?mod=content.list" class="admin_link">
                   <i class="fa fa-dashboard fa-fw"></i>
                   Dashboard
                 </a>
               </li>
               <li>
-                <a href="http://bagus.com/admin/index.php?mod=content.resep" class="admin_link">
+                <a href="<?php echo _URL; ?>admin/index.php?mod=content.resep" class="admin_link">
                   <i class="fa fa-book fa-fw"></i>
                   Data Resep
                 </a>
               </li>
               <li>
-                <a href="http://bagus.com/admin/index.php?mod=content.user" class="admin_link">
+                <a href="<?php echo _URL; ?>admin/index.php?mod=content.user" class="admin_link">
                   <i class="fa fa-users fa-fw"></i>
                   Data Users
                 </a>
               </li>
               <li>
-                <a href="http://bagus.com/admin/index.php?mod=content.kategori" class="admin_link">
+                <a href="<?php echo _URL; ?>admin/index.php?mod=content.kategori" class="admin_link">
                   <i class="fa fa-tags fa-fw"></i>
                   Data Kategori
                 </a>
               </li>
               <li>
-                <a href="http://bagus.com/admin/index.php?mod=content.kriteria" class="admin_link">
+                <a href="<?php echo _URL; ?>admin/index.php?mod=content.kriteria" class="admin_link">
                   <i class="fa fa-align-left fa-fw"></i>
                   Data Kriteria
                 </a>
               </li>
               <li>
-                <a href="http://bagus.com/admin/index.php?mod=content.nilaikriteria" class="admin_link">
+                <a href="<?php echo _URL; ?>admin/index.php?mod=content.nilaikriteria" class="admin_link">
                   <i class="fa fa-tasks fa-fw"></i>
                   Data Nilai Kriteria
                 </a>
