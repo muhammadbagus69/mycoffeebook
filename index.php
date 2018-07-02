@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once __DIR__.'/config.php';
 include_once _ROOT.'function.php';
 include_once _ROOT.'includes/includes.php';
@@ -28,8 +27,7 @@ if (preg_match('~^(?:www\.)?api\.~is', @$_SERVER['HTTP_HOST']))
 	if (!empty($_URI))
 	{
 		$_URI = array_values($_URI);
-		$arg 	= explode('?', $_URI[0]);
-		$task = preg_replace('~[^a-z0-9\-_]+~', '_', strtolower($arg[0]));// diamankan dari orang nakal
+		$task = preg_replace('~[^a-z0-9\-_]+~', '_', strtolower($_URI[0]));// diamankan dari orang nakal
 	}
 	if (empty($task))
 	{
@@ -50,45 +48,34 @@ if (preg_match('~^(?:www\.)?api\.~is', @$_SERVER['HTTP_HOST']))
 	}
 	output_json($output);
 }else{
-
-	$_seo['URI']   = preg_replace('#^'._URI.'#is', '', @$_SERVER['REQUEST_URI']);
-	$_URI          = explode('/', $_seo['URI']);
-	if (!empty($_URI[1]))
+	if (preg_match('~^'._URI.'([^\?]+)(?:\?.*?)?$~is', @$_SERVER['REQUEST_URI'], $match))
 	{
-		$_URI = array_values($_URI);
-		$task = preg_replace('~[^a-z0-9\-_]+~', '_', strtolower($_URI[1]));// diamankan dari orang nakal
-	}
+		session_start();
+		$_META = array();
+		$_URI  = explode('/', $match[1]);
+		$task  = preg_replace('~[^a-z0-9\-_]+~', '_', strtolower($_URI[0]));// diamankan dari orang nakal
+		$_URI  = array_values($_URI);
+		$out   = array();
+		$mod   = $_URI[0];
+		$task  = @$_URI[1];
 
-
-	if ($_URI[0] == 'admin')
-	{
-		/*admin*/
-
-		if (empty($_SESSION['user']['name']))
+		if (file_exists(_ROOT.'modules/'.$mod.'/'.$task.'.php'))
 		{
-			$task = 'login';
-			if (empty($_URI[1]))
-			{
-				$task = 'index';
-			}
-		}		
-		if (file_exists(_ROOT.'admin/'.$task.'.php'))
-		{
-	  	ob_start();
-			include _ROOT.'admin/'.$task.'.php';
+			ob_start();
+			include _ROOT.'modules/'.$mod.'/'.$task.'.php';
 			$MST->content = ob_get_contents();
 			ob_end_clean();
-			$MST->stop = false;
 		}else{
 			$MST->content = 'Maaf, menu "'.$task.'" tidak di temukan';
-			$MST->stop = false;
 		}
-		
-		include _ROOT.'admin/index.php';
+
+		include _ROOT.'templates/'._TMP.'/index.php';
 	}else{
-		/*public page include index.php*/
-
+		include _ROOT.'templates/'._TMP.'/index.php';
 	}
-	// header("Location:"._URL."admin");
-}
 
+	if ($MST->stop)
+	{
+		die();
+	}
+}

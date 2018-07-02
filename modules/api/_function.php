@@ -1,4 +1,4 @@
-<?php  
+<?php 
 
 function api_ok($value, $is_ok = 1)
 {

@@ -1,4 +1,4 @@
-<?php  
+<?php
 if (!defined('_SYS'))
 {
 	if (defined('_ROOT'))
