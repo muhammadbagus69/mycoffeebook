@@ -15,11 +15,12 @@
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<script type="text/javascript">var _URL = "<?php echo _URL; ?>"</script>
 	</head>
 	<body>
 
+		<script src="<?php echo _URL?>templates/admin/bootstrap/js/bootstrap.min.js"></script>
 		<?php echo $MST->content; ?>
 		<!-- Bootstrap JavaScript & Jquery -->
-		<script src="<?php echo _URL?>templates/admin/bootstrap/js/bootstrap.min.js"></script>
 	</body>
 </html>

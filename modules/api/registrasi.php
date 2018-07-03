@@ -1,19 +1,25 @@
 <?php
 
-// pr('aaaa');die();
+pr('aaaa');die();
 
 $username 		=	$_GET['username'];
 $password 		= $_GET['password'];
-$namalengkap	= $_GET['namalengkap'];
+$nama					= $_GET['nama'];
 $alamat				= $_GET['alamat'];
 $level				= 0;
 
-$query 				= $db->Execute("INSERT INTO user VALUES ('','$username','$password','$namalengkap','$alamat','-','0')");
-
-if ($query) {
-	$user 	= $db->getRow("SELECT * FROM user WHERE username = '$username'"); 
+if (!empty($username) && !empty($password)) 
+{
+	$query 				= $db->Execute("INSERT INTO user VALUES ('','$username','$password','$nama','$alamat','-','0')");
+		if ($query) 
+		{
+			$user 	= $db->getRow("SELECT * FROM user WHERE username = '$username'"); 
+		}
+		if (!$query) 
+		{
+			$user 	= "Pendaftaran Gagal";
+		}
+	api_ok($user);
+}else{
+	api_no("Masukkan Data Anda")
 }
-if (!$query) {
-	$user 	= "Pendaftaran Gagal";
-}
-api_ok($user);
