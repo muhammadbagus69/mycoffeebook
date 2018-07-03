@@ -1,6 +1,6 @@
 <?php  
-$username = @$_GET['username'];
-$password = @$_GET['password'];
+$username = @$_POST['username'];
+$password = @$_POST['password'];
 
 if (!empty($username) && !empty($username))
 {
