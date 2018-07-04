@@ -7,12 +7,14 @@ if (!empty($_POST['kriteriaadd']))
 	if ($insert) 
 	{
     echo "<script>alert('Tambah Berhasil')</script>";
-    echo "<script>location.href=<?php echo _URL; ?>'admin/index.php?mod=content.kriteria'</script>";
+    echo "<script>location.href='"._URL."admin/index.php?mod=content.kriteria'</script>";
     // header('Location:admin/index.php?mod=content.kriteria');
 	}
 }
 ?>
 <div class="modal-body">
+<h2>Tambah Data</h2>
+  <hr/>
 <!--FORM MODAL-->
 <form class="form-horizontal" method="post" action="" role="form">
   <fieldset>

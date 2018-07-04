@@ -22,13 +22,19 @@ if (preg_match('~^(?:www\.)?api\.~is', @$_SERVER['HTTP_HOST']))
 	$is_api        = 1;
 	$_seo          = array();
 	$_seo['break'] = false;
-	$_seo['URI']   = preg_replace('#^'._URI.'#is', '', @$_SERVER['REQUEST_URI']);
-	$_URI          = explode('/', $_seo['URI']);
-	if (!empty($_URI))
-	{
-		$_URI = array_values($_URI);
-		$task = preg_replace('~[^a-z0-9\-_]+~', '_', strtolower($_URI[0]));// diamankan dari orang nakal
-	}
+	$_seo['GET']   = '';
+  if (preg_match('~^'._URI.'([^\?]+)(?:\?(.*?))?$~is', @$_SERVER['REQUEST_URI'], $match))
+  {
+    $_seo['URI'] = $match[1];
+    $_seo['GET'] = $match[2]; 
+  }
+  $_URI          = explode('/', $_seo['URI']);
+
+  if (!empty($_URI))
+  {
+    $_URI = array_values($_URI);
+    $task = preg_replace('~[^a-z0-9\-_]+~', '_', strtolower($_URI[0]));// diamankan dari orang nakal
+  }
 	if (empty($task))
 	{
 		$task = 'main';

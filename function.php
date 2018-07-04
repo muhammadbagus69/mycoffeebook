@@ -211,3 +211,26 @@ function getDB($dbID=0)
 		return $GLOBALS['db'.$i];
 	}
 }
+
+function img_show($filename='')
+{
+	if (empty($filename))
+  {
+    $p = 'images/uploads/no_user.png';
+  }else{
+  	$p = 'images/uploads/'.$filename; 
+  }
+
+  $dir = _ROOT.$p;
+  if(!file_exists($dir) || !is_file($dir))
+  {
+    $p = 'images/uploads/no_user.png';
+    $dir = _ROOT.$p;
+  }
+  
+  if (is_file($dir))
+  {
+   $img = _URL.$p;
+  }
+  return $img;
+}

@@ -1,6 +1,3 @@
-<?php
-
-?>
 <style>
 .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -18,21 +15,20 @@
 </style>
 
 <br/>
-<button type="button" class="btn btn-primary">Tambah Data</button>
+<a href='<?php echo _URL; ?>admin/index.php?mod=content.user_tambah' class="btn btn-primary open_modal"><i class="glyphicon glyphicon-plus"></i>  Tambah Data</a>
 
 <br/>
 <br/>
 
 <div class="row">
-	<div class="col-md-12">
 		<?php 
 			$query = $db->getAll("SELECT * FROM user");
 			foreach ($query as $value) 
 			{
 		?>
 		<div class="col-sm-4">
-			<div class="card" style="padding: 10px;">
-			  <img src="../images/uploads/logo.png" alt="Avatar" style="width:100%">
+			<div class="card_<?php echo $value['id']; ?>" style="padding: 10px;">
+			  <img src="<?php echo img_show($value['foto']); ?>" alt="Avatar" style="width:300px;height: 300px; padding-right: 15px">
 			  <div class="container-fluid">
 			    <h4 style="text-align: center;"><b><?php echo $value['username']; ?></b></h4>
 			  </div>
@@ -41,8 +37,8 @@
           {
           	?>
 				  <div class="card-footer container">
-				  	<button type="button" class="btn btn-success">Edit</button>
-				  	<button type="button" class="btn btn-danger">Hapus</button>
+						<a href="<?php echo _URL; ?>admin/index.php?mod=content.user_edit&id=<?php echo $value['id']; ?>" class='btn btn-success'><i class="glyphicon glyphicon-pencil"></i></a>
+						<button class="btn btn-danger open_delete" data-id="<?php echo $value['id']; ?>"><i class="glyphicon glyphicon-trash"></i></button>
 				  </div>
 				  <?php 
           }
@@ -53,7 +49,18 @@
 			}
 		?>
 		
-	</div>
 </div>
 
-
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".open_delete").click(function(e) {
+		var a = $(this).data("id");
+		if (confirm("Apakah anda yakin akan menghapus ini?")) {
+			$.post(_URL+"admin/index.php?mod=content.user_hapus", {
+				"id": a,
+			});
+			$(".card_"+a).remove();
+		}
+  });
+});
+</script>
