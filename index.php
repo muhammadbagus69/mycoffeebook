@@ -26,7 +26,7 @@ if (preg_match('~^(?:www\.)?api\.~is', @$_SERVER['HTTP_HOST']))
   if (preg_match('~^'._URI.'([^\?]+)(?:\?(.*?))?$~is', @$_SERVER['REQUEST_URI'], $match))
   {
     $_seo['URI'] = $match[1];
-    $_seo['GET'] = $match[2]; 
+    $_seo['GET'] = @$match[2]; 
   }
   $_URI          = explode('/', $_seo['URI']);
 

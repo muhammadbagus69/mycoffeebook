@@ -1,18 +1,29 @@
 <?php  
 $username = @$_POST['username'];
 $password = @$_POST['password'];
+$ok = 0;
+$msg = '';
+$user = array();
 
-if (!empty($username) && !empty($username))
+if (!empty($username) && !empty($password))
 {
-  $query     = $db->getRow("SELECT username,password FROM user WHERE username = '$username' AND password = '$password'");  
+  $query     = $db->getRow("SELECT username,nama,alamat,foto FROM user WHERE username = '$username' AND password = '$password'");  
 
   if ($query) {
-    $user   = $db->getRow("SELECT * FROM user WHERE username = '$username'"); 
+  	$user = $query;
+    $ok = 1;
+    $msg = 'Success' ;
+  }else{
+    $msg   = 'Akun tidak ditemukan';
   }
-  if (!$query) {
-    $user   = 'Akun tidak ditemukan';
-  }
-  api_ok($user);
 }else{
-  api_no('Masukkan username password');
+  $msg = "Silahkan isikan username dan password anda!!";
 }
+
+api_ok(
+	array(
+			'ok'			=> $ok,
+			'message' => $msg,
+			'user'		=> $user
+		)
+	);
