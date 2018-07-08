@@ -3,6 +3,28 @@
   $id = $_GET['id'];
   $query = $db->getRow("SELECT * FROM user WHERE id='$id'");
 
+  if (!empty($_POST['username'])) 
+  {
+    $username = $_POST['username'];
+    $nama_lengkap = $_POST['nama_lengkap'];
+    $alamat = $_POST['alamat'];
+    $password = $_POST['password'];
+    $date = date('Yms');
+    $filename = $date.'_'.$_FILES['foto']['name'];
+
+    $update = $db->Execute("UPDATE user SET username='$username',password='$password', nama='$nama_lengkap',alamat='$alamat',foto='$filename' WHERE id='$id'");
+    move_uploaded_file($_FILES['foto']['tmp_name'], _ROOT.'images/uploads/'.$filename);
+    
+    if ($update) 
+    {
+      echo '<script>alert("Data berhasil diubah")</script>';
+      echo "<script>location.href='"._URL."admin/index.php?mod=content.user'</script>";
+      
+    }else{
+      echo '<script>alert("Ubah data gagal")</script>';
+    }
+  }
+
 ?>
 
 <h2>Ubah Data</h2>
