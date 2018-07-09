@@ -27,7 +27,7 @@
 <form class="form-horizontal" method="post" action="" role="form" enctype="multipart/form-data">
   <fieldset>
     <div class="form-group">
-      <label for="inputNama" class="col-lg-6 control-label">Nama Kriteria</label>
+      <label for="inputNama" class="col-lg-6 control-label">Nama Kategori</label>
       <div class="col-lg-12">
         <input value="<?php echo $query['kategori']; ?>" class="form-control" id="kategori" placeholder="Nama" name="kategori" type="text" maxlength="50" required></div>
     </div>
@@ -38,7 +38,7 @@
     </div>
     <div class="form-group">
       <div class="col-lg-12 col-lg-offset-6">
-        <button type="reset" class="btn btn-default" data-dismiss="modal">Batal</button>
+        <a href="<?php echo _URL; ?>admin/index.php?mod=content.kategori" class="btn btn-default">Batal</a>
         <button type="submit" class="btn btn-primary">Simpan</button>
       </div>
     </div>

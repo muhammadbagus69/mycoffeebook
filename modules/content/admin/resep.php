@@ -10,22 +10,29 @@
 			<th>Gambar</th>
 			<th>Nama Resep</th>
 			<th style="width:300px; ">Kategori</th>
-			<th>Deskripsi</th>
+			<th>Komposisi</th>
+			<th>Pembuatan</th>
 			<th style="width: 150px;"></th>
 		</tr>
 	</thead>
 		<?php
-		$query = $db->getAll("SELECT * FROM resep");
+		$query = $db->getAll("SELECT  `kategori`.`kategori` ,  `resep`.`nama` ,  `resep`.`image` ,  `resep`.`komposisi` ,  `resep`.`pembuatan` 
+											FROM  `resep` 
+											LEFT JOIN kategori ON  `kategori`.`id` =  `resep`.`id_kategori` 
+											ORDER BY  `kategori`.`kategori`");
+		// pr($query, __FILE__.':'.__LINE__);die();
+		$no = 1;
 		foreach ($query as $value) 
 			{
 		?>
 			<tbody>
 				<tr>
-					<td><?php echo $value['id']; ?></td>
-					<td><?php echo $value['image'] ?></td>
+					<td><?php echo $no; ?></td>
+					<td><img src="<?php echo img_show($value['image']); ?>" style="height: 80px;width: 80px"></td>
 					<td><?php echo $value['nama'] ?></td>
 					<td><?php echo $value['kategori'] ?></td>
-					<td><?php echo $value['deskripsi'] ?></td>
+					<td><?php echo $value['komposisi'] ?></td>
+					<td><?php echo $value['pembuatan'] ?></td>
 					<td>
 						<button type="button" class="btn btn-success" data-toggle="modal" href="#modal-edit" id='<?php echo $value['id']; ?>'>Ubah</button>
 						<button type="button" class="btn btn-danger" data-toggle="modal" href="#modal-delete" id='<?php echo $value['id']; ?>'>Hapus</button>
@@ -34,6 +41,7 @@
 			</tbody>
 		<?php
 			}
+		$no++
 		?>
 </table>
 

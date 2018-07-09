@@ -218,7 +218,7 @@ function img_show($filename='')
   {
     $p = 'images/uploads/no_user.png';
   }else{
-  	$filename = urlencode($filename);
+  	// $filename = urlencode($filename);
   	$p = 'images/uploads/'.$filename; 
   }
 
