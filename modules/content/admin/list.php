@@ -2,7 +2,8 @@
 	$resep = $db->getOne("SELECT COUNT(id) FROM resep");
 	$user = $db->getOne("SELECT COUNT(id) FROM user");
 	$kategori = $db->getOne("SELECT COUNT(id) FROM kategori");
-	$kriteria = $db->getOne("SELECT COUNT(id) FROM kriteria");
+  $kriteria = $db->getOne("SELECT COUNT(id) FROM kriteria");
+	$nilai = $db->getOne("SELECT COUNT(id) FROM nilai");
 ?>
 
 <br/>
@@ -57,7 +58,7 @@
       <div class="caption">
         <p>
 	        <a href="<?php echo _URL; ?>admin/index.php?mod=content.kriteria" style="font-size: 30px;color: black;">Data Nilai Kriteria</a> 
-	        <a href="<?php echo _URL; ?>admin/index.php?mod=content.kriteria" class="pull-right" style="font-size: 30px;"><?php echo $kriteria; ?></a>
+	        <a href="<?php echo _URL; ?>admin/index.php?mod=content.kriteria" class="pull-right" style="font-size: 30px;"><?php echo $nilai; ?></a>
 	      </p>
       </div>
     </div>

@@ -12,8 +12,9 @@
 		{
 			echo "<script>alert('Tambah Berhasil')</script>";
       echo "<script>location.href='"._URL."admin/index.php?mod=content.kategori'</script>";
-
-		}
+		}else{
+      echo "<script>alert('Tambah Data Gagal!!!')</script>";
+    }
 	}
 ?>
 <form class="form-horizontal" method="post" action="" role="form" enctype="multipart/form-data">
@@ -30,7 +31,7 @@
     </div>
     <div class="form-group">
       <div class="col-lg-12 col-lg-offset-6">
-        <button type="reset" class="btn btn-default" data-dismiss="modal">Batal</button>
+        <a href="<?php echo _URL; ?>admin/index.php?mod=content.kategori" class="btn btn-default">Batal</a>
         <button type="submit" class="btn btn-primary">Simpan</button>
       </div>
     </div>
