@@ -7,7 +7,7 @@
     $nama_lengkap = $_POST['nama_lengkap'];
     $alamat = $_POST['alamat'];
     $password = $_POST['password'];
-    $date = date('Yms');
+    $date = date('Ymds');
     $filename = $date.'_'.$_FILES['foto']['name'];
     
     $ins = $db->Execute("INSERT INTO user VALUES ('','$username','$password','$nama_lengkap','$alamat','$filename',0)");

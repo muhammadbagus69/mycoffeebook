@@ -92,34 +92,7 @@ function file_write($path, $data='', $mode = 'w+')
 	@chmod($path, 0777);
 	return TRUE;
 }
-function path_create($path, $chmod = 0777)
-{
-	if(!empty($path))
-	{
-		if(file_exists($path)) $output = true;
-		else {
-			$path = preg_replace('~^'.addslashes(_ROOT).'~', '', $path);
-			$path = preg_replace('~^'.addslashes(_URL).'~', '', $path);
-			$tmp_dir = _ROOT;
-			$r = explode('/', $path);
-			foreach($r AS $dir)
-			{
-				$tmp_dir .= $dir.'/';
-				if(!file_exists($tmp_dir))
-				{
-					if(mkdir($tmp_dir, $chmod))
-					{
-						chmod($tmp_dir, $chmod);
-					}
-				}
-			}
-			$output = file_exists($tmp_dir);
-		}
-	}else{
-		$output = false;
-	}
-	return $output;
-}
+
 function output_json($array)
 {
 	$output = '{}';
@@ -143,6 +116,7 @@ function output_json($array)
 	echo $output;
 	exit();
 }
+
 function _func($file)
 {
 	if(!empty($file))
@@ -187,10 +161,58 @@ function _func($file)
 		}
 	}
 }
+
+
+function _class($file)
+{
+	global $MST;
+	if(!empty($file))
+	{
+		$class = preg_replace('~\.php~s', '', $file);
+		if(isset($MST->$class) && $MST->$class != false && func_num_args()==1) return $MST->$class;
+		_ext($file);
+		$filename = '';
+		if(file_exists(_ROOT.'modules/'.str_replace('.php', '/_class.php', $file)))
+		{
+		  $filename = _ROOT.'modules/'.str_replace('.php', '/_class.php', $file);
+		  $class .= '_class';
+		}else
+		if(is_file(_CLASS.$file))
+		{
+		  $filename = _CLASS.$file;
+		}
+		if(!empty($filename))
+		{
+			include_once $filename;
+			if (class_exists($class))
+			{
+				$j = func_num_args();
+				if($j > 1)
+				{
+					$l = array();
+					for($i=1;$i < $j;$i++)
+					{
+						$k = 'l'.$i;
+						$$k = func_get_arg($i);
+						$l[] = '$'.$k;
+					}
+					eval('$MST->'.$class.' = new '.$class.'('.implode(',', $l).');');
+				}else{
+					$MST->$class = new $class();
+				}
+			}else $MST->$class = false;
+		}
+	}
+	return !empty($MST->$class) ? $MST->$class : false;
+}
+
+
+
 function _ext(&$file, $ext = '.php')
 {
 	if(substr($file, (strlen($ext)*-1)) != $ext) $file .= $ext;
 }
+
 
 
 function getDB($dbID=0)
@@ -234,4 +256,118 @@ function img_show($filename='')
    $img = _URL.$p;
   }
   return $img;
+}
+
+function image($file, $sizes = '', $attr='')
+{
+	$path_file= '';
+	$path_url	= '';
+	if(preg_match('~^(?:ht|f)tps?://~is', $file))
+	{
+		$tmp = str_replace(_URL, _ROOT, $file);
+		if(!preg_match('~^(?:ht|f)tps?://~is', $tmp))
+		{
+			if(is_file($tmp))
+			{
+				$path_file = $tmp;
+			}else{
+				return false;
+			}
+		}
+		$path_url = $file;
+	}else{
+		if(is_file($file))
+		{
+			$path_file= $file;
+			$path_url	= str_replace(_ROOT, _URL, $file);
+		}else
+		if(is_file(_ROOT.$file))
+		{
+			$path_file= _ROOT.$file;
+			$path_url	= _URL.$file;
+		}else{
+			return false;
+		}
+	}
+	if(preg_match('~\.swf$~is', $path_file))
+	{
+		list($width, $height) = image_size($sizes);
+		$width	= $width ? $width : 200;
+		$height = $height ? $height : 200;
+		$output =	 '<object type="application/x-shockwave-flash" data="'.$path_url.'" width="'.$width.'" height="'.$height.'"'.$attr.'>'."\n";
+		$output .= '	<param name="movie" value="'.$path_url.'">'."\n";
+		$output .= '	<param name="menu" value="false">'."\n";
+		$output .= '	<param name="wmode" value="transparent">'."\n";
+		$output .= "</object>";
+	}else{
+		$sizes2 = image_size($sizes, true);
+		if(empty($path_file))
+		{
+			$sizes = $sizes2;
+		}else{
+			$sizes1 = getimagesize($path_file);
+			$sizes	= array();
+			if($sizes1[0] > $sizes2[0])
+			{
+				if($sizes1[0] > $sizes1[1])
+				{
+					$sizes[0] = $sizes2[0];
+					$sizes[1] = $sizes2[0]*$sizes1[1]/$sizes1[0];
+				}else{
+					$sizes[1] = $sizes2[1];
+					$sizes[0] = $sizes2[1]*$sizes1[0]/$sizes1[1];
+				}
+			}else{
+				$sizes = $sizes1;
+			}
+		}
+		$attr .= $sizes[0] ? ' width="'.$sizes[0].'"' : '';
+		$attr .= $sizes[1] ? ' height="'.$sizes[1].'"' : '';
+		$output = '<img src="'.$path_url.'"'.$attr.' />';
+	}
+	return $output;
+}
+
+function image_size($sizes, $in_resize = false)
+{
+	if(empty($sizes)) return array(0,0);
+	if(is_array($sizes))
+	{
+		$output = array_values($sizes);
+		if(!isset($output[1])||!$output[1]) $output[1] = 0;
+	}else{
+		preg_match('~([0-9]+)[x\*\,]?([0-9]+)?~', $sizes, $match);
+		$output[] = $match[1];
+		$output[] = (@intval($match[2]) > 0) ? $match[2] : 0;
+	}
+	if($in_resize && !$output[1]) $output[1] = $output[0];
+	return $output;
+}
+
+function image_transform($x,$y,$x1,$y1)
+{
+  $input_landscape  = ($x > $y) ? true : false;
+  $output_landscape = ($x1 > $y1) ? true : false;
+  $x2 = $y2 = 0;
+  if($input_landscape)
+  {
+    if($output_landscape)
+    {
+      $x2 = $x1;
+      $y2 = ceil($y/$x*$x2);
+    }else{
+      $y2 = $y1;
+      $x2 = ceil($y/$x*$y2);
+    }
+  }else{
+    if($output_landscape)
+    {
+      $x2 = $x1;
+      $y2 = ceil($y/$x*$x2);
+    }else{
+      $x2 = $x1;
+      $y2 = ceil($y/$x*$x2);
+    }
+  }
+  return array($x2,$y2);
 }

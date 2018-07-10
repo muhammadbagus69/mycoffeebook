@@ -2,7 +2,7 @@
 	if (!empty($_POST['kategori'])) 
 	{
 		$kategori = $_POST['kategori'];
-    $date = date('Yms');
+    $date = date('Ymds');
     $filename = $date.'_'.$_FILES['foto']['name'];
 		$insert = $db->Execute("INSERT INTO kategori VALUES ('','$kategori','$filename')");
     move_uploaded_file($_FILES['foto']['tmp_name'], _ROOT.'images/uploads/'.$filename);

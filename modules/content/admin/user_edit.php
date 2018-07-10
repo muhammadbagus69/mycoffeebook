@@ -9,7 +9,7 @@
     $nama_lengkap = $_POST['nama_lengkap'];
     $alamat = $_POST['alamat'];
     $password = $_POST['password'];
-    $date = date('Yms');
+    $date = date('Ymds');
     $filename = $date.'_'.$_FILES['foto']['name'];
 
     $update = $db->Execute("UPDATE user SET username='$username',password='$password', nama='$nama_lengkap',alamat='$alamat',foto='$filename' WHERE id='$id'");

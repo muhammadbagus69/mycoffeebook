@@ -107,6 +107,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+
     $('#page-wrapper').html('<iframe id="body_content" src="<?php echo _URL; ?>admin/index.php?mod=content.list" style="width: 100%;height:570px;border:0;"></iframe>');
     $(".admin_link").click(function(e){
       e.preventDefault();

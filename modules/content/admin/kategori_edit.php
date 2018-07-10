@@ -6,7 +6,7 @@
   if (!empty($_POST['kategori'])) 
   {
     $kategori = $_POST['kategori'];
-    $date = date('Yms');
+    $date = date('Ymds');
     $filename = $date.'_'.$_FILES['image']['name'];
 
     $update = $db->Execute("UPDATE kategori SET kategori='$kategori', image='$filename' WHERE id='$id'");
