@@ -37,8 +37,8 @@
             <ul class="dropdown-menu dropdown-user">
               <li>
                 <a href="<?php echo _URL; ?>admin/index.php?mod=content.logout" class="admin_link">
-                  <i class="fa fa-sign-out fa-fw"></i>
-                  Logout
+                  <i class="fa fa-sign-out fa-fw" style="color: black;"></i>
+                  <span>Logout</span> 
                 </a>
               </li>
             </ul>

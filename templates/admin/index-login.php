@@ -29,7 +29,7 @@
 			if ($username == '' && $password == '') {
 			    echo "<script>alert('Silahkan isikan username dan password')</script>";
 			  }else{
-			  $query = $db->getRow("SELECT `username`,`password` FROM user WHERE username = '$username' AND password = '$password'");  
+			  $query = $db->getRow("SELECT `username`,`password` FROM user WHERE username = '$username' AND password = '$password' AND level='1'");  
 				  if ($password == $query['password'] && $username == $query['username'])
 				  {
 						$_SESSION['admin_id'] = 1;
