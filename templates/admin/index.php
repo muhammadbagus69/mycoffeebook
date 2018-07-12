@@ -80,6 +80,12 @@
                 </a>
               </li>
               <li>
+                <a href="<?php echo _URL; ?>admin/index.php?mod=content.subkriteria" class="admin_link">
+                  <i class="fa fa-list-ol fa-fw"></i>
+                  Data Sub Kriteria
+                </a>
+              </li>
+              <li>
                 <a href="<?php echo _URL; ?>admin/index.php?mod=content.nilaikriteria" class="admin_link">
                   <i class="fa fa-tasks fa-fw"></i>
                   Data Nilai Kriteria

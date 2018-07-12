@@ -29,10 +29,10 @@
 			if ($username == '' && $password == '') {
 			    echo "<script>alert('Silahkan isikan username dan password')</script>";
 			  }else{
-			  $query = $db->getRow("SELECT `username`,`password` FROM user WHERE username = '$username' AND password = '$password' AND level='1'");  
+			  $query = $db->getRow("SELECT `id`,`username`,`password` FROM user WHERE username = '$username' AND password = '$password' AND level='1'");  
 				  if ($password == $query['password'] && $username == $query['username'])
 				  {
-						$_SESSION['admin_id'] = 1;
+						$_SESSION['admin_id'] = $query['id'];
 			      echo "<script>alert('Login Berhasil')</script>";
 						header('Location:'._URL.'admin/');
 				  }else{
