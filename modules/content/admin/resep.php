@@ -13,6 +13,7 @@
 			<th style="vertical-align: middle;">Komposisi</th>
 			<th style="vertical-align: middle;">Deskripsi</th>
 			<th style="vertical-align: middle;">Nama Pembuat</th>
+			<th style="vertical-align: middle;">Publish</th>
 			<th style="width: 150px;vertical-align: middle;"></th>
 		</tr>
 	</thead>
@@ -23,6 +24,7 @@
 														`kategori`.`kategori` ,  
 														`resep`.`nama` ,  
 														`resep`.`image` , 
+														`resep`.`status`,
 														`user`.`username`, 
 														count(`komposisi`.`id_resep`) as TOTAL 
 													FROM  
@@ -101,6 +103,17 @@
 					<td><?php echo $value['deskripsi'] ?></td>
 					<td><?php echo $value['username'] ?></td>
 					<td>
+						<div class="checkbox">
+							<label>
+							<?php 
+								$valstat = $value['status'] == 1 ? 'checked' : '';
+
+							?>
+								<input type="checkbox" value="" <?php echo $valstat; ?> class="publish" data-id="<?php echo $value['id']; ?>">
+							</label>
+						</div>
+					</td>
+					<td>
 						<a href="<?php echo _URL; ?>admin/index.php?mod=content.resep_edit&id=<?php echo $value['id']; ?>" class='btn btn-success'><i class="glyphicon glyphicon-pencil"></i></a>
 						<button class="btn btn-danger open_delete" data-id="<?php echo $value['id']; ?>"><i class="glyphicon glyphicon-trash"></i></button>
 						<a href="<?php echo _URL; ?>admin/index.php?mod=content.resep_detail&id=<?php echo $value['id']; ?>" class="btn btn-info"><i class="glyphicon glyphicon-chevron-right"></i></a>
@@ -126,6 +139,15 @@ $(document).ready(function(){
 			$(".tr_"+a).remove();
 		}
   });
+
+  $('.publish').click(function(e){
+  	var a = $(this).data("id");
+  	if (confirm("Apakah anda yakin akan mengubah status resep ini ?")) {
+  		$.post(_URL+"admin/index.php?mod=content.resep_confirm", {
+				"id": a,
+			});
+  	}
+  })
 });
 </script>
 

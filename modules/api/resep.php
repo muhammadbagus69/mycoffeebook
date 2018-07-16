@@ -1,9 +1,8 @@
 <?php 
 
-// $query = $db->getAll("SELECT  `kategori`.`kategori` ,  `resep`.`nama` ,  `resep`.`image` 
-// 											FROM  `resep` 
-// 											LEFT JOIN kategori ON  `kategori`.`id` =  `resep`.`id_kategori` 
-// 											ORDER BY  `kategori`.`kategori`");
+$ok = 0;
+$msg = '';
+$resep = array();
 
 $query = $db->getAll("SELECT * FROM resep WHERE status='1' LIMIT 7");
 foreach ($query as $key => $value) 
@@ -11,4 +10,19 @@ foreach ($query as $key => $value)
 	$query[$key]['image'] = img_show($value['image']);
 }
 
-api_ok($query);		
+if ($query) 
+{
+	$resep = $query;
+  $ok = 1;
+  $msg = 'Success' ;
+}else{
+	$msg = 'Resep Kosong';
+}
+
+api_ok(
+	array(
+			'ok'			=> $ok,
+			'message' => $msg,
+			'resep'		=> $resep
+		)
+	);

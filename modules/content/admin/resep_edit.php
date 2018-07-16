@@ -33,7 +33,18 @@
 
 				if (!empty($_POST['nama'])) 
 				{
-					echo "<script>alert('Simpan Berhasil')</script>";
+					$nama = $_POST['nama'];
+					$kategori = $_POST['kategori'];
+					$deskripsi = $_POST['deskripsi'];
+
+					$update = $db->Execute("UPDATE `resep` SET nama ='$nama', id_kategori = '$kategori', deskripsi='$deskripsi' WHERE id = '$id'");
+					if ($update) 
+					{
+						echo "<script>alert('Ubah Resep Berhasil')</script>";
+						echo "<script>location.href='"._URL."admin/index.php?mod=content.resep'</script>";	
+					}else{
+						echo "<script>alert('Ubah Resep Gagal')</script>";
+					}
 				}
 
 			?>
@@ -72,7 +83,7 @@
 			      <label for="inputNama" class="col-lg-6 control-label">Foto</label>
 			      <div class="col-lg-12">
 			      	<img src="<?php echo img_show($query['image']); ?>" style="height: 300px;width: 300px"">
-			        <input  id="image" name="image" type="file">
+			        <!-- <input  id="image" name="image" type="file"> -->
 		        </div>
 			    </div>
 			    <div class="form-group">
@@ -87,11 +98,36 @@
 		</div>
 		
 		<div role="tabpanel" class="tab-pane" id="EditKomposisi">
-			<?php 
+			<?php
 
 				if (!empty($_POST['espresso'])) 
 				{
-					echo "<script>alert('Simpan ndasmu')</script>";
+					$espresso = $_POST['espresso'];
+			    $campuran = $_POST['campuran'];
+			    $suhu = $_POST['suhu'];
+			    $volume = $_POST['volume'];
+			    $bubuk = $_POST['bubuk'];
+			    $alat = $_POST['alat'];
+
+			    $delKom = $db->Execute("DELETE FROM `komposisi` WHERE `id_resep` = $id");
+
+			    if ($delKom) 
+			    {
+			    	$insert_k = $db->Execute("INSERT INTO `komposisi` 
+																      VALUES('',$id,$espresso),
+																      ('',$id,$campuran),
+																      ('',$id,$suhu),
+																      ('',$id,$volume),
+																      ('',$id,$bubuk),
+																      ('',$id,$alat)");
+			    	if ($insert_k) 
+			    	{
+							echo "<script>alert('Ubah Komposisi Berhasil')</script>";
+							echo "<script>location.href='"._URL."admin/index.php?mod=content.resep'</script>";	
+						}else{
+							echo "<script>alert('Ubah Komposisi Gagal')</script>";
+						}
+			    }
 				}
 
 			?>
@@ -227,7 +263,34 @@
 		</div>
 		
 		<?php
-		$howto = $db->getCol("SELECT `cara` FROM `pembuatan` WHERE `id_resep` = '$id' ORDER BY `urutan` ASC"); 
+		$howto = $db->getCol("SELECT `cara` FROM `pembuatan` WHERE `id_resep` = '$id' ORDER BY `urutan` ASC");
+
+		if (!empty($_POST['cara_buat'])) 
+		{
+			$delHowTo = $db->Execute("DELETE FROM `pembuatan` WHERE id_resep = $id");
+			
+			if ($delHowTo) 
+			{
+		    $cara_buat = $_POST['cara_buat'];
+				foreach ($cara_buat as $key => $buat) 
+				{
+				 	$urut = $key+1;
+				 	if (!empty($buat)) 
+				 	{
+					 	$insert_p = $db->Execute("INSERT INTO pembuatan VALUES('',$id,$urut,'$buat')");
+					 	if ($insert_p) 
+					 	{
+							echo "<script>alert('Ubah Pembuatan Berhasil')</script>";
+							echo "<script>location.href='"._URL."admin/index.php?mod=content.resep'</script>";	
+						}else{
+							echo "<script>alert('Ubah Pembuatan Gagal')</script>";
+						}
+				 	}
+			  } 
+			}
+		}
+
+
 		?>
 		<div role="tabpanel" class="tab-pane" id="EditCaraPembuatan">
 			<form class="form-horizontal" method="post" action="" role="form" enctype="multipart/form-data" novalidate="novalidate">
