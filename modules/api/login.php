@@ -7,7 +7,7 @@ $user = array();
 
 if (!empty($username) && !empty($password))
 {
-  $query     = $db->getRow("SELECT username,nama,alamat,foto FROM user WHERE username = '$username' AND password = '$password'");  
+  $query     = $db->getRow("SELECT id,username,nama,alamat,foto FROM user WHERE username = '$username' AND password = '$password'");  
     if ($query) 
     {
       $query['foto'] = img_show($query['foto']);
