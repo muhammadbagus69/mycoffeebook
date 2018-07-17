@@ -8,6 +8,7 @@ $query = $db->getAll("SELECT * FROM resep WHERE status='1' LIMIT 7");
 foreach ($query as $key => $value) 
 {
 	$query[$key]['image'] = img_show($value['image']);
+	$query[$key]['selected'] = 0;
 }
 
 if ($query) 

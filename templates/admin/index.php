@@ -25,7 +25,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html" style="color: #fff">MyCoffeeBook</a>
+          <a class="navbar-brand" href="#" style="color: #fff">MyCoffeeBook</a>
         </div>
 
         <ul class="nav navbar-top-links navbar-right">
@@ -35,6 +35,12 @@
               <i class="fa fa-caret-down" style="color: #00dcff"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
+              <li>
+                <a href="<?php echo _URL; ?>admin/index.php?mod=content.logout" class="admin_link">
+                  <i class="fa fa-cogs fa-fw" style="color: black;"></i>
+                  <span>Ubah Password</span> 
+                </a>
+              </li>
               <li>
                 <a href="<?php echo _URL; ?>admin/index.php?mod=content.logout" class="admin_link">
                   <i class="fa fa-sign-out fa-fw" style="color: black;"></i>

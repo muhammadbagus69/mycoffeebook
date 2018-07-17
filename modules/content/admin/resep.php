@@ -8,6 +8,7 @@
 		<tr style="background-color: grey;color: white;">
 			<th style="vertical-align: middle;">No</th>
 			<th style="vertical-align: middle;">Gambar</th>
+			<th style="vertical-align: middle;">Upload Gambar</th>
 			<th style="vertical-align: middle;">Nama Resep</th>
 			<th style="vertical-align: middle;">Kategori</th>
 			<th style="vertical-align: middle;">Komposisi</th>
@@ -68,7 +69,12 @@
 			<tbody>
 				<tr class="tr_<?php echo $value['id']; ?>">
 					<td><?php echo $no; ?></td>
-					<td><img src="<?php echo img_show($value['image']); ?>" style="height: 80px;width: 80px"></td>
+					<td>
+						<img src="<?php echo img_show($value['image']); ?>" style="height: 80px;width: 80px">
+					</td>
+					<td>
+						<a href="<?php echo _URL; ?>admin/index.php?mod=content.resep_ubah_image&id=<?php echo $value['id']; ?>" class='btn btn-warning'><i class="glyphicon glyphicon-pencil"></i></a>
+					</td>
 					<td><?php echo $value['nama'] ?></td>
 					<td><?php echo $value['kategori'] ?></td>
 					<td style="text-align: center;"><span data-toggle="popover" 
