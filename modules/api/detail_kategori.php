@@ -3,20 +3,27 @@
 $id = $_GET['id'];
 $ok = 0;
 $msg = '';
-$detail = array();
+$resep = array();
 
 if (!empty($id)) 
 {
-	$getID = $db->getRow("SELECT * FROM resep WHERE id_kategori='$id'");
-	if ($getID) 
+	$query = $db->getAll("SELECT * FROM `resep` WHERE `id_kategori`='$id' AND `status`= 1");
+	
+	foreach ($query as $key => $value) 
 	{
-		$getID['image'] = img_show($getID['image']);
-    $detail = $getID;
-    $ok = 1;
-    $msg = 'Success' ;
-	}else{
-		$msg = "Resep Kosong";
+		$query[$key]['image'] = img_show($value['image']);
+		$query[$key]['selected'] = 0;
 	}
+
+	if ($query) 
+	{
+		$resep = $query;
+	  $ok = 1;
+	  $msg = 'Success' ;
+	}else{
+		$msg = 'Resep Kosong';
+	}
+
 }else{
 	$msg = "Failed to access";
 }
@@ -26,6 +33,6 @@ api_ok(
 	array(
 			'ok'			=> $ok,
 			'message' => $msg,
-			'resep'		=> $detail
+			'resep'		=> $resep
 		)
 	);

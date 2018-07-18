@@ -9,7 +9,7 @@ $alamat				= $_POST['alamat'];
 $level				= 0;
 
 
-if (!empty($username) && !empty($username))
+if (!empty($username) && !empty($password))
 {
   $query     = $db->Execute("INSERT INTO user VALUES ('','$username','$password','$nama','$alamat','-','0')");  
 
