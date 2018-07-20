@@ -7,7 +7,7 @@ $deskripsi = $_POST['deskripsi'];
 $idUser = @$_POST['iduser'];
 
 
-$namaImage = '';
+$nameImage = '';
 $move_upload = array();
 
 
@@ -25,7 +25,6 @@ if (!empty($nama) || !empty($image))
 	}
 
 	$insert = $db->Execute("INSERT INTO `resep` VALUES ('','$nama','$kategori','$namaImage','$deskripsi','$idUser',0)");
-
 	if ($insert) 
 	{
 		rename($move_upload['source'], $move_upload['dest']);
@@ -49,13 +48,15 @@ if (!empty($nama) || !empty($image))
       ('',$id_resep,$volume),
       ('',$id_resep,$bubuk),
       ('',$id_resep,$alat)");
-    foreach ($caraBuat as $key => $buat) 
+
+    $howTo = implode(',', $caraBuat); 
+    foreach ($howTo as $key => $buat) 
     {
       $urut = $key+1;
       $insert_p = $db->Execute("INSERT INTO pembuatan VALUES('',$id_resep,$urut,'$buat')");
     }
 	}else{
-		$result['message'] = "Gagal Menambahkan"
+		$result['message'] = "Gagal Menambahkan";
 	}
 }
 
